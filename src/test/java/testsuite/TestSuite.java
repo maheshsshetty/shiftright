@@ -44,6 +44,13 @@ public class TestSuite {
 	  String title="Test"+sdf.format(new Date());
 	  newpage.setTitle(title);
 	  newpage.setDescription("Test Description"+sdf.format(new Date()));
+	  newpage.clickOnUnlockImage();
+	  newpage.clickOnRestrictionDialog();
+	  newpage.clickOnRestrictionDropdown();
+	  newpage.selectRestrictionDropdownOpetion1();
+	  newpage.clickOnApplyButton();
+	  Thread.sleep(10000);
+	  driver.switchTo().defaultContent();
 	  newpage.clickOnPublishButton();
 	  Thread.sleep(10000);
 	  System.out.println(newpage.geth1Title());
@@ -54,9 +61,13 @@ public class TestSuite {
   
   @BeforeMethod
   public void initialize() throws IOException { 
-	  
+	  String OS = System.getProperty("os.name").toLowerCase();
+	  if(OS.contains("nix")||OS.contains("nux")||OS.contains("aix"))
       System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + File.separator + "Driver" + File.separator + "chromedriver"); 
-      driver = new ChromeDriver(); 
+      if(OS.contains("win"))
+      System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + File.separator + "Driver" + File.separator + "chromedriver.exe"); 
+        
+	  driver = new ChromeDriver(); 
       driver.manage().window().maximize(); 
       driver.manage().timeouts().implicitlyWait( 
            10, TimeUnit.SECONDS); 
